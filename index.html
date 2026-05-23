@@ -1,85 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Rohini Muppala | Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;cursor:none !important;}
 :root{
   --bg:#F0EDE8;--bg2:#E8E4DE;--white:#FAFAF8;
   --dark:#111110;--dark2:#1C1C1A;
   --gray:#6B6B65;--gray2:#9A9A92;
   --blue:#00a0bd;--blue-light:#E6F7FA;--blue-mid:#A8E4EF;--blue-text:#007A91;
-  --border:#D8D4CE;--border2:#C8C4BC;
+  --border:#D8D4CE;--border2:#C8C4BC;--nav-bg:rgba(240,237,232,0.92);
+}
+[data-theme="dark"]{
+  --bg:#0F0F0F;--bg2:#1A1A1A;--white:#1E1E1E;
+  --dark:#F0EDE8;--dark2:#E0DDD8;
+  --gray:#9A9A92;--gray2:#6B6B65;
+  --blue:#00c4e0;--blue-light:#0a2a30;--blue-mid:#0d4a58;--blue-text:#60D8EF;
+  --border:#2A2A2A;--border2:#333;--nav-bg:rgba(15,15,15,0.92);
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden;transition:background .3s,color .3s;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--dark);border-radius:4px;}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:4px;}
 
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:10px;height:10px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .15s,height .15s;}
+#cursor-ring{position:fixed;width:32px;height:32px;border:2px solid var(--blue);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:left .08s ease-out,top .08s ease-out,width .2s,height .2s;opacity:.5;}
+body.hov #cursor{width:18px;height:18px;}
+body.hov #cursor-ring{width:44px;height:44px;opacity:.2;}
+body.clk #cursor{width:6px;height:6px;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--dark);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s;}
+#loader.hide{opacity:0;pointer-events:none;}
+.lr{width:72px;height:72px;border-radius:50%;border:3px solid rgba(255,255,255,.1);border-top:3px solid var(--blue);animation:spin 1s linear infinite;}
+.ln{font-family:'Syne',sans-serif;font-size:2rem;font-weight:900;color:#fff;margin-top:1.2rem;}
+.ln span{color:var(--blue);}
+.lb{width:100px;height:2px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:.8rem;overflow:hidden;}
+.lf{height:100%;background:var(--blue);animation:lf 1.8s ease forwards;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes lf{from{width:0;}to{width:100%;}}
+
+/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(36px);}to{opacity:1;transform:translateY(0);}}
 @keyframes slideLeft{from{opacity:0;transform:translateX(60px);}to{opacity:1;transform:translateX(0);}}
 @keyframes dotPulse{0%,100%{opacity:1;}50%{opacity:.25;}}
 @keyframes floatCard{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
-
 .afu{animation:fadeUp .8s cubic-bezier(.22,1,.36,1) both;}
 .asl{animation:slideLeft .85s cubic-bezier(.22,1,.36,1) both;}
 .d1{animation-delay:.05s;}.d2{animation-delay:.2s;}.d3{animation-delay:.38s;}
 .d4{animation-delay:.54s;}.d5{animation-delay:.7s;}
-
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1);}
 .reveal.on{opacity:1;transform:none;}
 
-nav{position:fixed;top:0;width:100%;z-index:999;background:rgba(240,237,232,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:999;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .3s;}
 .nav-inner{max-width:1200px;margin:auto;padding:0 3rem;display:flex;justify-content:space-between;align-items:center;height:64px;}
 .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;}
-.nav-logo-icon{width:36px;height:36px;border-radius:10px;background:var(--dark);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Syne',sans-serif;font-weight:900;font-size:.95rem;}
+.nav-logo-icon{width:36px;height:36px;border-radius:10px;background:var(--dark);display:flex;align-items:center;justify-content:center;color:var(--bg);font-family:'Syne',sans-serif;font-weight:900;font-size:.95rem;}
 .nav-logo-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--dark);}
 .nav-center{display:flex;gap:2.5rem;}
-.nav-center a{text-decoration:none;color:var(--gray);font-size:.88rem;font-weight:500;transition:.2s;}
-.nav-center a:hover{color:var(--dark);}
+.nav-center a{text-decoration:none;color:var(--gray);font-size:.88rem;font-weight:500;transition:.2s;position:relative;padding-bottom:4px;}
+.nav-center a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--blue);border-radius:2px;transition:.3s;}
+.nav-center a.active{color:var(--blue);}
+.nav-center a.active::after,.nav-center a:hover::after{width:100%;}
+.nav-center a:hover{color:var(--blue);}
 .nav-right{display:flex;align-items:center;gap:.8rem;}
-.nav-hire{background:var(--dark);color:#fff;padding:.48rem 1.2rem;border-radius:8px;font-size:.84rem;font-weight:600;text-decoration:none;transition:.2s;}
-.nav-hire:hover{background:var(--dark2);transform:translateY(-1px);}
+.theme-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:.2s;}
+.theme-btn:hover{border-color:var(--blue);}
+.nav-hire{background:var(--dark);color:var(--bg);padding:.48rem 1.2rem;border-radius:8px;font-size:.84rem;font-weight:600;text-decoration:none;transition:.2s;}
+.nav-hire:hover{opacity:.85;}
 .nav-resume{background:var(--white);color:var(--dark);padding:.48rem 1.2rem;border-radius:8px;font-size:.84rem;font-weight:600;text-decoration:none;border:1px solid var(--border2);transition:.2s;}
 .nav-resume:hover{background:var(--bg2);}
 
+/* BACK TO TOP */
+#btt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:12px;background:var(--blue);color:#fff;border:none;font-size:1rem;display:flex;align-items:center;justify-content:center;z-index:998;box-shadow:0 4px 16px rgba(0,160,189,.3);opacity:0;transform:translateY(20px);transition:opacity .3s,transform .3s;pointer-events:none;}
+#btt.show{opacity:1;transform:translateY(0);pointer-events:all;}
+#btt:hover{background:var(--blue-text);transform:translateY(-3px)!important;}
+
 /* HERO */
 .hero-section{min-height:100vh;display:flex;align-items:center;padding-top:64px;}
-.hero-inner{max-width:1200px;margin:auto;width:100%;display:flex;align-items:center;gap:5rem;padding:4rem 3rem 5rem;flex-wrap:nowrap;}
+.hero-inner{max-width:1200px;margin:auto;width:100%;display:flex;align-items:center;gap:5rem;padding:4rem 3rem 5rem;}
 .hero-left{flex:1;min-width:0;}
-.open-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--white);border:1px solid var(--border);border-radius:50px;padding:.45rem 1rem;font-size:.79rem;font-weight:500;color:var(--dark);margin-bottom:1.6rem;}
-.open-badge .dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:dotPulse 1.8s ease infinite;}
-h1.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:-3px;color:var(--dark);margin-bottom:1.4rem;}
-.hero-role-wrap{display:flex;align-items:center;gap:.9rem;margin-bottom:1.5rem;flex-wrap:wrap;}
-.typewriter-outer{display:flex;align-items:center;}
-#typewriter-text{font-size:1.05rem;font-weight:600;color:var(--blue);min-height:1.5em;}
-.tw-cursor{display:inline-block;width:2px;height:1.15em;background:var(--blue);margin-left:2px;vertical-align:middle;animation:blink .75s step-end infinite;}
-.hero-location{background:var(--blue-light);color:var(--blue-text);font-size:.76rem;font-weight:700;padding:.32rem .85rem;border-radius:50px;letter-spacing:.5px;border:1px solid var(--blue-mid);flex-shrink:0;}
-.hero-desc{font-size:.97rem;color:var(--gray);line-height:1.9;max-width:440px;margin-bottom:2.6rem;}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-.btn-dark{background:var(--dark);color:#fff;padding:.78rem 1.7rem;border-radius:10px;font-size:.91rem;font-weight:600;text-decoration:none;transition:.25s;display:inline-flex;align-items:center;gap:.5rem;}
-.btn-dark:hover{background:var(--dark2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.18);}
-.btn-ghost{background:var(--white);color:var(--dark);padding:.78rem 1.7rem;border-radius:10px;font-size:.91rem;font-weight:600;text-decoration:none;border:1px solid var(--border2);transition:.25s;display:inline-flex;align-items:center;gap:.5rem;}
-.btn-ghost:hover{background:var(--bg2);transform:translateY(-3px);}
+.badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--white);border:1px solid var(--border);border-radius:50px;padding:.45rem 1rem;font-size:.79rem;font-weight:500;color:var(--dark);margin-bottom:1.6rem;}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:dotPulse 1.8s ease infinite;}
+h1.hname{font-family:'Syne',sans-serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:-3px;color:var(--dark);margin-bottom:1.4rem;}
+.role-row{display:flex;align-items:center;gap:.9rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+#tw{font-size:1.05rem;font-weight:600;color:var(--blue);min-height:1.5em;}
+.cur{display:inline-block;width:2px;height:1.1em;background:var(--blue);margin-left:2px;vertical-align:middle;animation:blink .75s step-end infinite;}
+.loc-tag{background:var(--blue-light);color:var(--blue-text);font-size:.76rem;font-weight:700;padding:.32rem .85rem;border-radius:50px;border:1px solid var(--blue-mid);}
+.hdesc{font-size:.97rem;color:var(--gray);line-height:1.9;max-width:440px;margin-bottom:2.6rem;}
+.hbtns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-d{background:var(--dark);color:var(--bg);padding:.78rem 1.7rem;border-radius:10px;font-size:.91rem;font-weight:600;text-decoration:none;transition:.25s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-d:hover{opacity:.85;transform:translateY(-3px);}
+.btn-g{background:var(--white);color:var(--dark);padding:.78rem 1.7rem;border-radius:10px;font-size:.91rem;font-weight:600;text-decoration:none;border:1px solid var(--border2);transition:.25s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-g:hover{background:var(--bg2);transform:translateY(-3px);}
 
+/* PHOTO CARD */
 .hero-right{flex:0 0 370px;animation:slideLeft .85s cubic-bezier(.22,1,.36,1) .35s both;}
-.photo-card{border-radius:26px;overflow:hidden;background:var(--dark2);width:100%;aspect-ratio:3/4;position:relative;box-shadow:0 28px 72px rgba(0,0,0,.16);animation:floatCard 5s ease-in-out 1.4s infinite;}
+.photo-card{border-radius:26px;overflow:hidden;background:var(--dark2);width:100%;aspect-ratio:3/4;position:relative;box-shadow:0 28px 72px rgba(0,0,0,.2);animation:floatCard 5s ease-in-out 1.4s infinite;}
 .card-accent{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),#60C8D8);z-index:2;}
 .card-badge{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:.35rem .85rem;font-size:.73rem;font-weight:600;color:#fff;z-index:2;}
-.photo-wrap{width:100%;height:calc(100% - 110px);overflow:hidden;}
-.photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;}
-.photo-fallback{width:100%;height:100%;background:linear-gradient(160deg,#2a2a28,#111110);display:flex;align-items:center;justify-content:center;font-size:7rem;}
+.photo-wrap{width:100%;height:calc(100% - 110px);background:linear-gradient(160deg,#2a2a28,#111110);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;}
+.photo-wrap .phi{font-size:6rem;opacity:.6;}
+.photo-wrap .pht{font-size:.72rem;color:rgba(255,255,255,.2);letter-spacing:2px;}
 .photo-label{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);padding:1.1rem 1.4rem;border-top:1px solid rgba(0,0,0,.06);}
+[data-theme="dark"] .photo-label{background:rgba(30,30,30,.97);}
 .photo-label h4{font-size:.95rem;font-weight:700;color:var(--dark);}
 .photo-label p{font-size:.79rem;color:var(--gray);margin-top:.15rem;}
-.photo-label .ptags{display:flex;gap:.5rem;margin-top:.65rem;flex-wrap:wrap;}
-.photo-label .ptag{background:var(--blue-light);border:1px solid var(--blue-mid);color:var(--blue-text);font-size:.71rem;font-weight:600;padding:.2rem .65rem;border-radius:50px;}
+.ptags{display:flex;gap:.5rem;margin-top:.65rem;flex-wrap:wrap;}
+.ptag{background:var(--blue-light);border:1px solid var(--blue-mid);color:var(--blue-text);font-size:.71rem;font-weight:600;padding:.2rem .65rem;border-radius:50px;}
 
 /* SECTIONS */
 .sec{padding:5.5rem 3rem;max-width:1200px;margin:auto;}
@@ -95,7 +130,7 @@ h1.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3rem,6vw,5.5rem);font
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .stat-card{background:var(--white);border-radius:18px;padding:1.35rem;border:1px solid var(--border);border-left:3px solid var(--blue);transition:.3s;}
 .stat-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.07);}
-.stat-card i{font-size:1.4rem;color:var(--blue);margin-bottom:.55rem;display:block;}
+.stat-card .si{font-size:1.4rem;margin-bottom:.55rem;display:block;}
 .stat-card h4{font-size:.84rem;font-weight:700;color:var(--dark);}
 .stat-card p{font-size:.75rem;color:var(--gray);margin-top:.2rem;}
 
@@ -103,73 +138,74 @@ h1.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3rem,6vw,5.5rem);font
 .skills-wrap{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1.4rem;}
 .skill-cat{background:var(--bg);border-radius:20px;padding:1.6rem;border:1px solid var(--border);transition:.3s;}
-.skill-cat:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.07);border-color:var(--border2);}
+.skill-cat:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.07);}
 .sk-head{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;}
-.sk-icon{width:32px;height:32px;border-radius:9px;background:var(--dark);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;}
+.sk-icon{width:32px;height:32px;border-radius:9px;background:var(--dark);display:flex;align-items:center;justify-content:center;color:var(--bg);font-size:.85rem;}
 .sk-title{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;color:var(--dark);text-transform:uppercase;letter-spacing:1px;}
 .sk-item{display:flex;align-items:center;gap:.75rem;padding:.42rem .5rem;border-radius:8px;margin-bottom:.38rem;transition:.2s;}
 .sk-item:hover{background:var(--blue-light);}
-.sk-item .ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;}
+.sk-item .ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sk-item span{font-size:.87rem;font-weight:500;color:var(--dark);}
 
 /* PROJECTS */
 .projects-wrap{background:var(--bg);}
-.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem;}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem;}
 .proj-card{background:var(--white);border-radius:22px;overflow:hidden;border:1px solid var(--border);transition:.35s;}
-.proj-card:hover{transform:translateY(-8px);box-shadow:0 24px 56px rgba(0,0,0,.1);border-color:var(--border2);}
-.proj-card-accent{height:3px;background:linear-gradient(90deg,var(--blue),#60C8D8);}
+.proj-card:hover{transform:translateY(-8px);box-shadow:0 24px 56px rgba(0,0,0,.12);border-color:var(--border2);}
+.proj-accent{height:3px;background:linear-gradient(90deg,var(--blue),#60C8D8);}
 .proj-top{padding:2rem 2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;}
-.proj-icon-box{width:66px;height:66px;background:var(--blue-light);border-radius:16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--blue-mid);flex-shrink:0;font-size:2rem;}
+.proj-icon{width:68px;height:68px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
 .proj-top-text h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:.25rem;}
 .proj-top-text p{font-size:.78rem;color:var(--blue);font-weight:600;}
-.proj-divider{height:1px;background:var(--border);margin:0 2rem;}
+.proj-div{height:1px;background:var(--border);margin:0 2rem;}
 .proj-body{padding:1.5rem 2rem;}
 .proj-desc{font-size:.87rem;color:var(--gray);line-height:1.75;margin-bottom:1.2rem;}
 .proj-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem;}
 .proj-tag{display:inline-flex;align-items:center;gap:.35rem;background:var(--blue-light);border:1px solid var(--blue-mid);color:var(--blue-text);font-size:.72rem;font-weight:600;padding:.25rem .72rem;border-radius:50px;}
-.proj-link{display:inline-flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:600;color:var(--dark);text-decoration:none;padding:.44rem 1rem;border-radius:8px;background:var(--bg);border:1px solid var(--border);transition:.2s;}
-.proj-link:hover{background:var(--dark);color:#fff;border-color:var(--dark);}
+.proj-links{display:flex;gap:.8rem;flex-wrap:wrap;}
+.plink{display:inline-flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:600;color:var(--dark);text-decoration:none;padding:.44rem 1rem;border-radius:8px;background:var(--bg);border:1px solid var(--border);transition:.2s;}
+.plink:hover{background:var(--dark);color:var(--bg);}
+.plink.demo{background:var(--blue);color:#fff;border-color:var(--blue);}
+.plink.demo:hover{background:var(--blue-text);}
 
 /* ACHIEVEMENTS */
 .ach-wrap{background:var(--white);border-top:1px solid var(--border);}
 .ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;}
 .ach-card{background:var(--bg);border-radius:18px;padding:1.5rem;border:1px solid var(--border);display:flex;gap:1rem;align-items:flex-start;transition:.3s;}
 .ach-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.07);}
-.ach-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;color:#fff;}
+.ach-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;color:#fff;}
 .ach-icon.gold{background:linear-gradient(135deg,#F59E0B,#FBBF24);}
 .ach-icon.silver{background:linear-gradient(135deg,#6B7280,#9CA3AF);}
 .ach-icon.blue{background:linear-gradient(135deg,var(--blue),#60C8D8);}
 .ach-card h4{font-size:.88rem;font-weight:700;color:var(--dark);margin-bottom:.3rem;}
 .ach-card p{font-size:.79rem;color:var(--gray);line-height:1.6;}
 .cert-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;}
-.cert-pill{display:inline-flex;align-items:center;gap:.6rem;background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:50px;padding:.6rem 1.1rem;transition:.2s;cursor:default;}
+.cert-pill{display:inline-flex;align-items:center;gap:.6rem;background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:50px;padding:.6rem 1.1rem;transition:.2s;}
 .cert-pill:hover{background:var(--blue);border-color:var(--blue);}
-.cert-pill:hover svg path,.cert-pill:hover span{fill:#fff;color:#fff;}
-.cert-pill span{font-size:.82rem;font-weight:600;color:var(--blue-text);}
+.cert-pill:hover span{color:#fff;}
+.cert-pill span{font-size:.82rem;font-weight:600;color:var(--blue-text);transition:.2s;}
 
 /* CONTACT */
-.contact-wrap{background:var(--dark);color:#fff;}
+.contact-wrap{background:var(--dark);}
 .contact-inner{max-width:1200px;margin:auto;padding:6rem 3rem;}
 .contact-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2.5rem;margin-bottom:4rem;}
-.contact-heading{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,4rem);font-weight:900;letter-spacing:-2px;color:#fff;max-width:500px;line-height:1.05;}
+.contact-heading{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,4rem);font-weight:900;letter-spacing:-2px;color:var(--bg);max-width:500px;line-height:1.05;}
 .contact-heading .accent{color:#60C8D8;}
-.contact-cta-box{background:#1C1C1A;border-radius:20px;padding:2rem;border:1px solid #2A2A28;border-top:3px solid var(--blue);max-width:340px;width:100%;}
-.contact-cta-box p{font-size:.89rem;color:#9A9A92;line-height:1.75;margin-bottom:1.5rem;}
+.cta-box{background:#1C1C1A;border-radius:20px;padding:2rem;border:1px solid #2A2A28;border-top:3px solid var(--blue);max-width:340px;width:100%;}
+.cta-box p{font-size:.89rem;color:#9A9A92;line-height:1.75;margin-bottom:1.5rem;}
 .btn-cream{background:var(--bg);color:var(--dark);padding:.78rem 1.8rem;border-radius:10px;font-size:.91rem;font-weight:700;text-decoration:none;transition:.25s;display:inline-flex;align-items:center;gap:.5rem;}
 .btn-cream:hover{background:var(--white);transform:translateY(-2px);}
-.contact-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;padding-top:3rem;border-top:1px solid #2A2A28;}
+.clinks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;padding-top:3rem;border-top:1px solid #2A2A28;}
 .clink{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;background:#161614;border:1px solid #2A2A28;border-radius:14px;text-decoration:none;transition:.2s;}
 .clink:hover{border-color:var(--blue);transform:translateY(-2px);}
-.clink-icon{width:40px;height:40px;border-radius:10px;background:#2A2A28;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#60C8D8;}
-.clink h5{font-size:.81rem;font-weight:600;color:#fff;}
+.clink-icon{width:40px;height:40px;border-radius:10px;background:#2A2A28;display:flex;align-items:center;justify-content:center;font-size:.95rem;}
+.clink h5{font-size:.81rem;font-weight:600;color:var(--bg);}
 .clink p{font-size:.75rem;color:#6B6B65;margin-top:.1rem;}
-
 footer{background:#0A0A09;color:#4A4A44;text-align:center;padding:1.3rem;font-size:.79rem;border-top:1px solid #1A1A18;}
 footer span{color:#60C8D8;}
 
 @media(max-width:900px){
   .hero-inner{flex-direction:column;gap:3rem;padding:3rem 2rem 4rem;}
-  h1.hero-name{font-size:clamp(2.8rem,10vw,4.5rem);}
   .hero-right{width:100%;max-width:380px;align-self:center;}
   .about-grid{grid-template-columns:1fr;}
   .contact-top{flex-direction:column;}
@@ -181,6 +217,20 @@ footer span{color:#60C8D8;}
 </head>
 <body>
 
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="lr"></div>
+  <div class="ln">R<span>M</span>.</div>
+  <div class="lb"><div class="lf"></div></div>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
@@ -189,13 +239,14 @@ footer span{color:#60C8D8;}
       <span class="nav-logo-name">Rohini Muppala</span>
     </a>
     <div class="nav-center">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Work</a>
-      <a href="#achievements">Recognition</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" class="nl">About</a>
+      <a href="#skills" class="nl">Skills</a>
+      <a href="#projects" class="nl">Work</a>
+      <a href="#achievements" class="nl">Recognition</a>
+      <a href="#contact" class="nl">Contact</a>
     </div>
     <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" title="Toggle theme">🌙</button>
       <a href="https://drive.google.com/file/d/1emc11eOteB-UPWjNdD8tiR1qj4awcicc/view?usp=drive_link" target="_blank" class="nav-resume">Resume ↗</a>
       <a href="#contact" class="nav-hire">Hire Me</a>
     </div>
@@ -207,38 +258,31 @@ footer span{color:#60C8D8;}
 <div class="hero-section">
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="open-badge afu d1"><span class="dot"></span> Open to Work · Fresher</div>
-      <h1 class="hero-name afu d2">Rohini<br/>Muppala</h1>
-      <div class="hero-role-wrap afu d3">
-        <div class="typewriter-outer">
-          <span id="typewriter-text"></span><span class="tw-cursor"></span>
-        </div>
-        <span class="hero-location">HYDERABAD, IN</span>
+      <div class="badge afu d1"><span class="dot"></span> Open to Work · Fresher</div>
+      <h1 class="hname afu d2">Rohini<br/>Muppala</h1>
+      <div class="role-row afu d3">
+        <span id="tw"></span><span class="cur"></span>
+        <span class="loc-tag">HYDERABAD, IN</span>
       </div>
-      <p class="hero-desc afu d4">Final-year B.Tech IT student passionate about crafting clean, scalable web applications and visually engaging digital experiences — combining code and creativity to build work that stands out.</p>
-      <div class="hero-btns afu d5">
-        <a href="#projects" class="btn-dark">View My Work →</a>
-        <a href="https://drive.google.com/file/d/1emc11eOteB-UPWjNdD8tiR1qj4awcicc/view?usp=drive_link" target="_blank" class="btn-ghost">View Resume ↗</a>
+      <p class="hdesc afu d4">Final-year B.Tech IT student passionate about crafting clean, scalable web applications and visually engaging digital experiences — combining code and creativity to build work that stands out.</p>
+      <div class="hbtns afu d5">
+        <a href="#projects" class="btn-d">View My Work →</a>
+        <a href="https://drive.google.com/file/d/1emc11eOteB-UPWjNdD8tiR1qj4awcicc/view?usp=drive_link" target="_blank" class="btn-g">View Resume ↗</a>
       </div>
     </div>
     <div class="hero-right">
       <div class="photo-card">
         <div class="card-accent"></div>
         <div class="card-badge">✦ Available</div>
-        <div class="photo-wrap" style="background:linear-gradient(160deg,#2a2a28 0%,#111110 100%);display:flex;align-items:center;justify-content:center;">
-          <div style="text-align:center;color:rgba(255,255,255,0.15);">
-            <div style="font-size:6rem;">👩‍💻</div>
-            <div style="font-size:.8rem;margin-top:.5rem;font-family:'Inter',sans-serif;letter-spacing:1px;">PHOTO HERE</div>
-          </div>
+        <div class="photo-wrap">
+          <div class="phi">👩‍💻</div>
+          <div class="pht">PHOTO HERE</div>
         </div>
         <div class="photo-label">
           <h4>Full Stack Developer &amp; Designer</h4>
           <p>B.Tech IT · VBIT Hyderabad · GPA 9.04</p>
           <div class="ptags">
-            <span class="ptag">React</span>
-            <span class="ptag">Node.js</span>
-            <span class="ptag">Figma</span>
-            <span class="ptag">MongoDB</span>
+            <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">Figma</span><span class="ptag">MongoDB</span>
           </div>
         </div>
       </div>
@@ -259,10 +303,30 @@ footer span{color:#60C8D8;}
         <p>As <strong>Design Lead</strong> for GANITH, IETE, and IEI clubs, I've delivered branding and creative assets that drove real engagement. Constantly learning and eager to contribute to meaningful projects.</p>
       </div>
       <div class="stat-grid reveal">
-        <div class="stat-card"><i class="fas fa-laptop-code"></i><h4>Full Stack Dev</h4><p>React · Node.js · MongoDB</p></div>
-        <div class="stat-card"><i class="fab fa-figma"></i><h4>Graphic Design</h4><p>Figma · Photoshop · Illustrator</p></div>
-        <div class="stat-card"><i class="fas fa-graduation-cap"></i><h4>B.Tech IT</h4><p>GPA 9.04 · 2023–2027</p></div>
-        <div class="stat-card"><i class="fas fa-star"></i><h4>Design Lead</h4><p>GANITH · IETE · IEI</p></div>
+        <div class="stat-card">
+          <span class="si">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="#00a0bd" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="#00a0bd" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <h4>Full Stack Dev</h4><p>React · Node.js · MongoDB</p>
+        </div>
+        <div class="stat-card">
+          <span class="si">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 3h14v9H5z" stroke="#00a0bd" stroke-width="2" stroke-linejoin="round"/><circle cx="19" cy="16" r="4.5" stroke="#00a0bd" stroke-width="2"/><path d="M5 12H2v9h8v-4" stroke="#00a0bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 8h5M5 5h5" stroke="#00a0bd" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <h4>Graphic Design</h4><p>Figma · Photoshop · Illustrator</p>
+        </div>
+        <div class="stat-card">
+          <span class="si">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7l9 5 9-5-9-5z" stroke="#00a0bd" stroke-width="2" stroke-linejoin="round"/><path d="M3 12l9 5 9-5M3 17l9 5 9-5" stroke="#00a0bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h4>B.Tech IT</h4><p>GPA 9.04 · 2023–2027</p>
+        </div>
+        <div class="stat-card">
+          <span class="si">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#00a0bd" stroke-width="2" stroke-linejoin="round"/></svg>
+          </span>
+          <h4>Design Lead</h4><p>GANITH · IETE · IEI</p>
+        </div>
       </div>
     </div>
   </div>
@@ -274,35 +338,153 @@ footer span{color:#60C8D8;}
     <div class="reveal"><div class="sec-num">02 — Skills</div><h2 class="sec-title">Technologies</h2></div>
     <div class="sec-line reveal"></div>
     <div class="skills-grid">
+
+      <!-- Frontend -->
       <div class="skill-cat reveal">
-        <div class="sk-head"><div class="sk-icon"><i class="fas fa-desktop"></i></div><span class="sk-title">Frontend</span></div>
-        <div class="sk-item"><div class="ico" style="background:#FFF4F0;"><svg viewBox="0 0 32 32" width="20" height="20"><path fill="#E34F26" d="M5.9 27.1L3 2h26l-2.9 25.1L16 30z"/><path fill="#EF652A" d="M16 27.6V4.9h10.8L24.2 25z"/><path fill="#EBEBEB" d="M16 13.3H11.1l-.3-3.5H16V6.5H7.3l.1 1.4.9 10.7H16zm0 8.9l-.1.0-4.2-1.1-.3-3.2H8.1l.5 5.9 7.4 2z"/><path fill="#fff" d="M16 13.3v3.3h4.6l-.4 4.6L16 22.2v3.5l7.4-2.1.5-5.9.5-5.4zm.9-6.8v3.3h8.5l.3-3.3z"/></svg></div><span>HTML5</span></div>
-        <div class="sk-item"><div class="ico" style="background:#F0F6FF;"><svg viewBox="0 0 32 32" width="20" height="20"><path fill="#1572B6" d="M5.9 27.1L3 2h26l-2.9 25.1L16 30z"/><path fill="#33A9DC" d="M16 27.6V4.9h10.8L24.2 25z"/><path fill="#EBEBEB" d="M16 13.3H11.1l-.3-3.5H16V6.5H7.3l.8 9.2H16zm0 9.3l-.1.0-4.2-1.1-.3-3.2H8.1l.5 5.9 7.4 2z"/><path fill="#fff" d="M16 13.3v3.3h4.5l-.4 4.5L16 22.2v3.5l7.4-2 .5-5.9.5-5.5zm.9-6.8v3.3h8.2l.3-3.3z"/></svg></div><span>CSS3</span></div>
-        <div class="sk-item"><div class="ico" style="background:#FFFDE7;"><svg viewBox="0 0 32 32" width="20" height="20"><path fill="#F7DF1E" d="M2 2h28v28H2z"/><path d="M20.8 22.9c.5.8 1.1 1.4 2.2 1.4 .9 0 1.5-.5 1.5-1.1 0-.8-.6-1-1.6-1.5l-.6-.2c-1.6-.7-2.6-1.5-2.6-3.3 0-1.6 1.2-2.9 3.2-2.9 1.4 0 2.4.5 3.1 1.8l-1.7 1.1c-.4-.7-.8-.9-1.4-.9-.7 0-1.1.4-1.1 1 0 .7.4.9 1.4 1.4l.6.2c1.8.8 2.9 1.6 2.9 3.4 0 2-1.5 3-3.6 3-2 0-3.3-1-3.9-2.3zm-8.1.2c.3.6.6 1 1.3 1 .7 0 1-.3 1-1.4V16h2.1v6.8c0 2.2-1.3 3.2-3.2 3.2-1.7 0-2.7-.9-3.2-2z"/></svg></div><span>JavaScript</span></div>
-        <div class="sk-item"><div class="ico" style="background:#E8F9FF;"><svg viewBox="0 0 32 32" width="20" height="20"><circle cx="16" cy="16" r="2.7" fill="#61DAFB"/><path fill="none" stroke="#61DAFB" stroke-width="1.2" d="M16 9.6c4.8 0 9.2.8 12.1 2.2 3.4 1.6 5.1 4 5.1 4.2s-1.7 2.6-5.1 4.2C25.2 21.6 20.8 22.4 16 22.4s-9.2-.8-12.1-2.2C.5 18.6-1.2 16.2-1.2 16s1.7-2.6 5.1-4.2C6.8 10.4 11.2 9.6 16 9.6z"/><path fill="none" stroke="#61DAFB" stroke-width="1.2" d="M10.7 12.8c2.4-4.2 5.3-7.2 7.8-8.8 2.9-1.8 5.6-1.8 5.7-1.6.1.2-1 2.9-2.6 6.3-1.6 3.5-3.9 7.7-6.2 11.7s-4.6 7.5-6.5 9.4c-2.3 2.3-4.6 3-4.8 2.9-.2-.1.3-3 2.6-7.1.8-1.4 2.3-3.9 4-6.8zm10.6 0c-2.4-4.2-3.1-8.2-2.5-10.9.7-3.3 2.8-4.7 3-4.6.2.1.6 3.1-.6 7.2-.6 2.1-1.7 4.8-3 7.7-1.3 3-2.9 6.2-4.6 9.2-1.7 3-3.5 5.7-5 7.5-1.9 2.3-3.8 3.4-4 3.2-.1-.2 1.1-2.7 3.5-5.8 1.3-1.7 3.2-4 5.3-7.1s4.5-7.3 4.5-7.3h3.4z"/></svg></div><span>React</span></div>
-        <div class="sk-item"><div class="ico" style="background:#F0FDFB;"><i class="fas fa-wind" style="color:#06B6D4;font-size:.9rem;"></i></div><span>Tailwind CSS</span></div>
+        <div class="sk-head">
+          <div class="sk-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <span class="sk-title">Frontend</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#FFF0EC;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#E34F26" d="M4 3h16l-1.5 16.5L12 21l-6.5-1.5z"/><path fill="#EF652A" d="M12 19.5l5-1.5L18 6H12z"/><path fill="#fff" d="M12 11H8.5l-.25-3H12V5.5H5.5l.75 9H12zm0 5.5l-3-1-.2-2.5H6.5l.4 4L12 19z"/><path fill="#EBEBEB" d="M12 11v2.5h3.25l-.3 3.5-3 .75V19l4.5-1.3.75-8.7z"/></svg>
+          </div>
+          <span>HTML5</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#EBF4FF;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#1572B6" d="M4 3h16l-1.5 16.5L12 21l-6.5-1.5z"/><path fill="#33A9DC" d="M12 19.5l5-1.5L18 6H12z"/><path fill="#fff" d="M12 9H8.5l.15 2H12V13H8.85l.2 2.5 3 .9V19l-4.5-1.3-.75-8.7H12z"/><path fill="#EBEBEB" d="M12 9v2h3.35l-.3 3.5-3 .75V19l4.5-1.3.75-8.7z"/></svg>
+          </div>
+          <span>CSS3</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#FFFCE0;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#F7DF1E" d="M2 2h20v20H2z"/><path fill="#323330" d="M17.5 16.5c.4.8 1 1.3 2 1.3.9 0 1.4-.4 1.4-1 0-.7-.6-1-1.5-1.4l-.5-.2c-1.5-.6-2.4-1.4-2.4-3 0-1.5 1.1-2.6 2.9-2.6 1.2 0 2.1.4 2.8 1.6l-1.5 1c-.3-.6-.7-.8-1.3-.8s-1 .3-1 .9c0 .6.4.9 1.3 1.2l.5.2c1.7.7 2.6 1.5 2.6 3.2 0 1.9-1.4 2.8-3.3 2.8-1.9 0-3-1-3.6-2.2zm-7 0c.3.6.6 1.2 1.4 1.2.7 0 1.1-.3 1.1-1.3v-6.9h1.9v7c0 2.1-1.2 3-3 3-1.6 0-2.5-.9-3-1.9z"/></svg>
+          </div>
+          <span>JavaScript</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#E6FAFE;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="2.5" fill="#61DAFB"/><path fill="none" stroke="#61DAFB" stroke-width="1.1" d="M12 7.5c5.5 0 10 2 10 4.5s-4.5 4.5-10 4.5S2 14.5 2 12s4.5-4.5 10-4.5z"/><path fill="none" stroke="#61DAFB" stroke-width="1.1" d="M7.5 9.8C10.2 5.4 13.5 2.7 15.5 3.8s1.5 5.3-1.2 9.7-6 7.1-8 6S4.8 14.1 7.5 9.8z"/><path fill="none" stroke="#61DAFB" stroke-width="1.1" d="M7.5 14.2C4.8 9.9 3.5 5.4 5.5 3.8s5.3 1.3 8 5.7 4 8.8 2 10.2-7.2-1.2-8-5.5z"/></svg>
+          </div>
+          <span>React</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#E0FDFB;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#06B6D4" d="M12 6C6 6 2 9 2 12s4 6 10 6 10-3 10-6-4-6-10-6zm0 10c-4.4 0-8-1.8-8-4s3.6-4 8-4 8 1.8 8 4-3.6 4-8 4z" opacity=".3"/><path fill="#06B6D4" d="M12 2C5 2 1 6.5 1 12s4 10 11 10 11-4.5 11-10S19 2 12 2zm0 18c-5 0-9-3.6-9-8s4-8 9-8 9 3.6 9 8-4 8-9 8z"/></svg>
+          </div>
+          <span>Tailwind CSS</span>
+        </div>
       </div>
+
+      <!-- Backend -->
       <div class="skill-cat reveal">
-        <div class="sk-head"><div class="sk-icon"><i class="fas fa-server"></i></div><span class="sk-title">Backend</span></div>
-        <div class="sk-item"><div class="ico" style="background:#F0FFF4;"><i class="fab fa-node-js" style="color:#339933;font-size:1.1rem;"></i></div><span>Node.js</span></div>
-        <div class="sk-item"><div class="ico" style="background:#F5F5F5;"><i class="fas fa-server" style="color:#444;font-size:.85rem;"></i></div><span>Express.js</span></div>
-        <div class="sk-item"><div class="ico" style="background:#EFF6FF;"><i class="fas fa-shield-alt" style="color:var(--blue);font-size:.9rem;"></i></div><span>JWT Auth</span></div>
-        <div class="sk-item"><div class="ico" style="background:#EFF6FF;"><i class="fab fa-python" style="color:#3776AB;font-size:1rem;"></i></div><span>Python</span></div>
-        <div class="sk-item"><div class="ico" style="background:#EFF6FF;"><i class="fas fa-plug" style="color:var(--blue);font-size:.9rem;"></i></div><span>REST APIs</span></div>
+        <div class="sk-head">
+          <div class="sk-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="currentColor" stroke-width="2"/><path d="M3 5v5c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="currentColor" stroke-width="2"/><path d="M3 10v5c0 1.66 4.03 3 9 3s9-1.34 9-3v-5" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <span class="sk-title">Backend</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#F0FFF4;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#339933" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-1-5h2V9h-2zm0-8h2V5h-2z"/><path fill="#339933" d="M11.5 8.5c.3-.5.8-.8 1.3-1s1-.2 1.5 0c.4.2.8.5 1 .9l-1.5.9c-.1-.2-.3-.4-.5-.4-.3-.1-.6 0-.8.3z"/></svg>
+          </div>
+          <span>Node.js</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#F5F5F5;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#888" d="M5 3h14a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm7 3L8 9l4 3 4-3-4-3zM7 13l5 3 5-3"/><path fill="none" stroke="#888" stroke-width="1.5" d="M8 9l4 3 4-3M12 12v4"/></svg>
+          </div>
+          <span>Express.js</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#EFF6FF;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#00a0bd" d="M12 2L4 6v6c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V6l-8-4zm0 2.2l6 3V12c0 4.5-2.7 8.7-6 10-3.3-1.3-6-5.5-6-10V7.2l6-3zm-1 5.8v5h2v-5h-2zm0-3h2v2h-2z"/></svg>
+          </div>
+          <span>JWT Auth</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#EFF8FF;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#3776AB" d="M11.5 2C8 2 6 3.6 6 5.5v2H4C2.9 7.5 2 8.4 2 9.5v5C2 15.6 2.9 16.5 4 16.5h2v2C6 20.4 8 22 11.5 22h1C16 22 18 20.4 18 18.5v-2h2c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2h-2v-2C18 3.6 16 2 12.5 2h-1zm0 2h1C14.5 4 16 4.8 16 5.5V7H8V5.5C8 4.8 9.5 4 11.5 4zm0 1.5a.75.75 0 100 1.5.75.75 0 000-1.5zm1 0a.75.75 0 100 1.5.75.75 0 000-1.5zm-9 4H20v5H3.5v-5zm.5 1.5a.75.75 0 100 1.5.75.75 0 000-1.5zM8 17.5h8v1c0 .7-1.5 1.5-3.5 1.5h-1C9.5 20 8 19.2 8 18.5v-1zm4.5 1.5a.75.75 0 100 1.5.75.75 0 000-1.5zm1 0a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+          </div>
+          <span>Python</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#EFF6FF;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="#00a0bd" stroke-width="2" stroke-linecap="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <span>REST APIs</span>
+        </div>
       </div>
+
+      <!-- Database -->
       <div class="skill-cat reveal">
-        <div class="sk-head"><div class="sk-icon"><i class="fas fa-database"></i></div><span class="sk-title">Database</span></div>
-        <div class="sk-item"><div class="ico" style="background:#F0FFF4;"><i class="fas fa-leaf" style="color:#47A248;font-size:1rem;"></i></div><span>MongoDB</span></div>
-        <div class="sk-item"><div class="ico" style="background:#EFF6FF;"><i class="fas fa-database" style="color:#4479A1;font-size:.9rem;"></i></div><span>MySQL</span></div>
-        <div class="sk-item"><div class="ico" style="background:#F0FFF4;"><i class="fas fa-cubes" style="color:#47A248;font-size:.9rem;"></i></div><span>Mongoose</span></div>
+        <div class="sk-head">
+          <div class="sk-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="2"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6" stroke="currentColor" stroke-width="2"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <span class="sk-title">Database</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#F0FFF4;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#47A248" d="M12 2C8 2 5 4.5 5 8c0 5.5 7 14 7 14s7-8.5 7-14c0-3.5-3-6-7-6zm0 8.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 5.5 12 5.5 14.5 6.6 14.5 8 13.4 10.5 12 10.5z"/></svg>
+          </div>
+          <span>MongoDB</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#EBF4FF;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4479A1" d="M12 3C7 3 3 4.3 3 6v12c0 1.7 4 3 9 3s9-1.3 9-3V6c0-1.7-4-3-9-3zm0 2c4.4 0 7 1.1 7 1s-2.6 1-7 1-7-1.1-7-1 2.6-1 7-1zm7 3v3c0 .9-3.1 2-7 2s-7-1.1-7-2V8c1.5.6 4.2 1 7 1s5.5-.4 7-1zm0 5v4c0 .9-3.1 2-7 2s-7-1.1-7-2v-4c1.5.6 4.2 1 7 1s5.5-.4 7-1z"/></svg>
+          </div>
+          <span>MySQL</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#F0FFF4;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#47A248" d="M12 4L3 9l9 5 9-5-9-5zm-9 9l9 5 9-5m-18 5l9 5 9-5" stroke="#47A248" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+          </div>
+          <span>Mongoose</span>
+        </div>
       </div>
+
+      <!-- Design & Tools -->
       <div class="skill-cat reveal">
-        <div class="sk-head"><div class="sk-icon"><i class="fas fa-paint-brush"></i></div><span class="sk-title">Design & Tools</span></div>
-        <div class="sk-item"><div class="ico" style="background:#FFF0EE;"><svg viewBox="0 0 32 32" width="20" height="20"><path fill="#F24E1E" d="M11 2h10v9H11z"/><circle cx="21" cy="16" r="4.5" fill="#FF7262"/><path fill="#A259FF" d="M11 11h10v9H11z"/><path fill="#0ACF83" d="M11 20h5a4.5 4.5 0 000-9v9z"/><path fill="#1ABCFE" d="M11 2h5a4.5 4.5 0 010 9H11V2z"/></svg></div><span>Figma</span></div>
-        <div class="sk-item"><div class="ico" style="background:#EBF6FF;"><svg viewBox="0 0 32 32" width="20" height="20"><rect fill="#31A8FF" width="32" height="32" rx="4"/><path fill="#fff" d="M8 8h6.5c3.5 0 5.5 1.8 5.5 4.5 0 1.5-.7 2.8-1.9 3.5L21 24h-3.5l-2.5-7H11v7H8V8zm3 7h3c1.5 0 2.5-.8 2.5-2s-1-2-2.5-2H11v4z"/></svg></div><span>Photoshop</span></div>
-        <div class="sk-item"><div class="ico" style="background:#FFF8EE;"><svg viewBox="0 0 32 32" width="20" height="20"><rect fill="#FF9A00" width="32" height="32" rx="4"/><path fill="#fff" d="M18 8l6 16h-3.5L19 20h-6l-1.5 4H8L14 8h4zm-2 3.5l-2 6h4l-2-6z"/></svg></div><span>Illustrator</span></div>
-        <div class="sk-item"><div class="ico" style="background:#FFF3F0;"><i class="fab fa-git-alt" style="color:#F05032;font-size:1.1rem;"></i></div><span>Git & GitHub</span></div>
-        <div class="sk-item"><div class="ico" style="background:#EAF5FF;"><i class="fas fa-code" style="color:#007ACC;font-size:.9rem;"></i></div><span>VS Code</span></div>
+        <div class="sk-head">
+          <div class="sk-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 20l4-4 12-12 4 4L10 20H2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 4l6 6" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <span class="sk-title">Design & Tools</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#FFF0EE;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#F24E1E" d="M8 3h8v6H8z"/><circle cx="16" cy="12" r="3" fill="#FF7262"/><path fill="#A259FF" d="M8 9h8v6H8z"/><path fill="#0ACF83" d="M8 15h4a3 3 0 000-6v6z"/><path fill="#1ABCFE" d="M8 3h4a3 3 0 010 6H8V3z"/></svg>
+          </div>
+          <span>Figma</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#EBF6FF;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><rect fill="#31A8FF" width="24" height="24" rx="4"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">Ps</text></svg>
+          </div>
+          <span>Photoshop</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#FFF8EE;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><rect fill="#FF9A00" width="24" height="24" rx="4"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">Ai</text></svg>
+          </div>
+          <span>Illustrator</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#FFF3F0;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#F05032" d="M22 12l-10 10L2 12 12 2l10 10zm-10 7.2l7.2-7.2L12 4.8 4.8 12 12 19.2zm0-12l-5 5 5 5 5-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z"/></svg>
+          </div>
+          <span>Git & GitHub</span>
+        </div>
+        <div class="sk-item">
+          <div class="ico" style="background:#EAF5FF;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#007ACC" d="M3 3h18v18H3V3zm3 3v12h4V9.5L14 18h3V6h-4v8.5L9 6H6z"/></svg>
+          </div>
+          <span>VS Code</span>
+        </div>
       </div>
     </div>
   </div>
@@ -313,48 +495,123 @@ footer span{color:#60C8D8;}
   <div class="sec">
     <div class="reveal"><div class="sec-num">03 — Work</div><h2 class="sec-title">Featured Projects</h2></div>
     <div class="sec-line reveal"></div>
-    <div class="project-grid">
+    <div class="proj-grid">
+
+      <!-- Project 1 -->
       <div class="proj-card reveal">
-        <div class="proj-card-accent"></div>
+        <div class="proj-accent"></div>
         <div class="proj-top">
-          <div class="proj-icon-box" style="background:linear-gradient(135deg,#E6FFF9,#CCF5EF);">
-            <svg viewBox="0 0 40 40" width="36" height="36"><rect fill="#00979D" width="40" height="40" rx="10"/><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold" font-family="monospace">ARD</text></svg>
+          <div class="proj-icon" style="background:#E6FFF9;border:1px solid #9FE1CB;">
+            <svg viewBox="0 0 60 60" width="52" height="52">
+              <rect width="60" height="60" rx="12" fill="#00979D"/>
+              <rect x="8" y="16" width="44" height="26" rx="4" fill="#007A80"/>
+              <rect x="4" y="25" width="5" height="10" rx="2" fill="#005C61"/>
+              <rect x="51" y="25" width="5" height="10" rx="2" fill="#005C61"/>
+              <rect x="15" y="20" width="3" height="5" rx="1" fill="#5FE0E8"/>
+              <rect x="21" y="20" width="3" height="5" rx="1" fill="#5FE0E8"/>
+              <rect x="27" y="20" width="3" height="5" rx="1" fill="#5FE0E8"/>
+              <rect x="39" y="35" width="3" height="5" rx="1" fill="#5FE0E8"/>
+              <rect x="45" y="35" width="3" height="5" rx="1" fill="#5FE0E8"/>
+              <circle cx="30" cy="30" r="5" fill="none" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="30" cy="30" r="2" fill="#fff"/>
+              <text x="30" y="54" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="6" font-family="monospace" font-weight="bold">ARDUINO</text>
+            </svg>
           </div>
           <div class="proj-top-text"><h3>Footsteps to Electricity</h3><p>IoT · Energy Harvesting · Arduino</p></div>
         </div>
-        <div class="proj-divider"></div>
+        <div class="proj-div"></div>
         <div class="proj-body">
           <p class="proj-desc">Arduino-based system converting kinetic energy from footsteps into electrical power via piezoelectric sensors — enabling sustainable lighting and device charging.</p>
           <div class="proj-tags">
-            <span class="proj-tag"><svg width="12" height="12" viewBox="0 0 40 40"><rect fill="#00979D" width="40" height="40" rx="6"/><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold" font-family="monospace">A</text></svg> Arduino</span>
-            <span class="proj-tag"><i class="fab fa-python" style="color:#3776AB;"></i> Python</span>
-            <span class="proj-tag"><i class="fas fa-microchip" style="color:#6366F1;"></i> IoT</span>
-            <span class="proj-tag"><i class="fas fa-bolt" style="color:#F59E0B;"></i> Piezo</span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#00979D"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="12" cy="12" r="1.5" fill="#fff"/></svg>
+              Arduino
+            </span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#3776AB"/><path d="M12 4C9 4 7.5 5.4 7.5 7v2H6C4.9 9 4 9.9 4 11v4c0 1.1.9 2 2 2h1.5v1C7.5 19.6 9 21 12 21h0c3 0 4.5-1.4 4.5-3v-1H18c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-1.5V7C16.5 5.4 15 4 12 4zm0 2c1.9 0 2.5.8 2.5 1v1.5h-5V7c0-.2.6-1 2.5-1zm-.5 2a.75.75 0 11.001 1.5A.75.75 0 0111.5 8z" fill="#FFD43B"/><path d="M12 20c-1.9 0-2.5-.8-2.5-1v-1.5h5V19c0 .2-.6 1-2.5 1zm.5-2a.75.75 0 11-.001-1.5A.75.75 0 0112.5 18z" fill="#3776AB"/></svg>
+              Python
+            </span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#6366F1"/><circle cx="12" cy="12" r="2.5" fill="#fff"/><path d="M5 12a7 7 0 017-7M19 12a7 7 0 01-7 7" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M3 12a9 9 0 019-9M21 12a9 9 0 01-9 9" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none" stroke-linecap="round"/></svg>
+              IoT
+            </span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#F59E0B"/><path d="M13 3L7 13h5l-1 8 7-11h-5z" fill="#fff"/></svg>
+              Piezo
+            </span>
           </div>
-          <a href="https://github.com/rohinimuppala18" target="_blank" class="proj-link"><i class="fab fa-github"></i> View on GitHub</a>
+          <div class="proj-links">
+            <a href="https://github.com/rohinimuppala18" target="_blank" class="plink">
+              <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.8 1 .8-.2 1.7-.3 2.5-.3s1.7.1 2.5.3c2-1.3 2.8-1 2.8-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5 4-1.3 6.8-5.1 6.8-9.5C22 6.5 17.5 2 12 2z"/></svg>
+              GitHub
+            </a>
+            <a href="#" class="plink demo">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Live Demo
+            </a>
+          </div>
         </div>
       </div>
+
+      <!-- Project 2 -->
       <div class="proj-card reveal">
-        <div class="proj-card-accent"></div>
+        <div class="proj-accent"></div>
         <div class="proj-top">
-          <div class="proj-icon-box" style="background:linear-gradient(135deg,#E6F7FA,#CCE9F5);">
-            <svg viewBox="0 0 40 40" width="36" height="36"><rect fill="#00a0bd" width="40" height="40" rx="10"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="18">🗺️</text></svg>
+          <div class="proj-icon" style="background:#E6F7FA;border:1px solid #A8E4EF;">
+            <svg viewBox="0 0 60 60" width="52" height="52">
+              <rect width="60" height="60" rx="12" fill="#00a0bd"/>
+              <!-- Map background -->
+              <rect x="8" y="10" width="44" height="34" rx="6" fill="#0080A0"/>
+              <!-- Map lines -->
+              <path d="M8 22h44M8 32h44M20 10v34M40 10v34" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/>
+              <!-- Location pin -->
+              <path d="M30 12c-5 0-9 4-9 9 0 7 9 19 9 19s9-12 9-19c0-5-4-9-9-9z" fill="#fff"/>
+              <circle cx="30" cy="21" r="3.5" fill="#00a0bd"/>
+              <!-- Shield bottom right -->
+              <path d="M47 38l-6-2-6 2v5c0 2.5 6 5 6 5s6-2.5 6-5v-5z" fill="rgba(255,255,255,0.95)"/>
+              <path d="M41 45l-3-3 1.2-1.2 1.8 1.8 4-4 1.2 1.2z" fill="#00a0bd"/>
+            </svg>
           </div>
           <div class="proj-top-text"><h3>Smart Tourist Safety</h3><p>Full Stack · Real-time · GPS</p></div>
         </div>
-        <div class="proj-divider"></div>
+        <div class="proj-div"></div>
         <div class="proj-body">
           <p class="proj-desc">Real-time safety platform with GPS tracking, geofencing, AI risk detection, SOS alerts — secured with JWT auth and blockchain-based digital identity generation.</p>
           <div class="proj-tags">
-            <span class="proj-tag"><i class="fab fa-node-js" style="color:#339933;"></i> Node.js</span>
-            <span class="proj-tag"><i class="fas fa-leaf" style="color:#47A248;"></i> MongoDB</span>
-            <span class="proj-tag"><i class="fas fa-shield-alt" style="color:var(--blue);"></i> JWT</span>
-            <span class="proj-tag"><i class="fas fa-link" style="color:#8B5CF6;"></i> Blockchain</span>
-            <span class="proj-tag"><svg width="12" height="12" viewBox="0 0 40 40"><rect fill="#F7DF1E" width="40" height="40" rx="6"/><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" fill="#222" font-size="13" font-weight="bold" font-family="monospace">JS</text></svg> JS</span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#339933"/><path d="M12 3L4 7.5v9L12 21l8-4.5v-9L12 3zm0 2.3l5.5 3.1v6.2L12 17.7 6.5 14.6V8.4L12 5.3zM12 8l-4 2.3 4 2.3 4-2.3L12 8z" fill="#fff"/></svg>
+              Node.js
+            </span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#47A248"/><path d="M12 3c-1 0-2 2.5-2 6.5 0 1 .1 2 .3 2.9.4 1.3 1 2.1 1.7 2.1s1.3-.8 1.7-2.1c.2-.9.3-1.9.3-2.9C14 5.5 13 3 12 3zM8 13.5c-.8.5-1.3 1-1.5 1.6-.3.9 0 1.9.8 2.8.8.8 1.9 1.4 3 1.8-.5-.8-.9-1.8-1.2-2.9-.2-.8-.2-2.1-.1-3.3zM16 13.5c.1 1.2.1 2.5-.1 3.3-.3 1.1-.7 2.1-1.2 2.9 1.1-.4 2.2-1 3-1.8.8-.9 1.1-1.9.8-2.8-.2-.6-.7-1.1-1.5-1.6z" fill="#fff"/></svg>
+              MongoDB
+            </span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#D63AFF"/><path d="M12 3L4 7v6c0 4.4 3.4 8.5 8 9.9 4.6-1.4 8-5.5 8-9.9V7l-8-4z" fill="rgba(255,255,255,0.25)"/><path d="M12 7l-5 2.5v4c0 2.7 2.1 5.3 5 6.2 2.9-.9 5-3.5 5-6.2v-4L12 7zm-1 6.5l-1.5-1.5 1-1 .5.5 2.5-2.5 1 1L11 13.5z" fill="#fff"/></svg>
+              JWT
+            </span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#F97316"/><rect x="4" y="4" width="7" height="7" rx="1.5" fill="#fff"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="#fff"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="#fff"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="#fff"/><path d="M7.5 8v4.5H11M11 11H16.5M16.5 11v5" stroke="#F97316" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+              Blockchain
+            </span>
+            <span class="proj-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#F7DF1E"/><path d="M7 17.5c.4.7.9 1.2 2 1.2.9 0 1.3-.4 1.3-1.1V12H12v5.7c0 2-1.1 2.8-2.9 2.8-1.6 0-2.5-.8-3-1.9l1.9-1.1zm5.5-.1c.5.8 1.1 1.3 2.2 1.3.9 0 1.5-.4 1.5-1 0-.7-.6-.9-1.6-1.3l-.6-.2c-1.5-.6-2.5-1.4-2.5-3 0-1.5 1.1-2.6 2.9-2.6 1.3 0 2.2.4 2.8 1.6l-1.9 1c-.3-.6-.7-.8-1.3-.8s-.9.3-.9.8.4.8 1.2 1.1l.6.2c1.8.7 2.8 1.5 2.8 3.2 0 1.8-1.4 2.8-3.3 2.8-1.8 0-3-.8-3.6-2l1.7-.9z" fill="#333"/></svg>
+              JS
+            </span>
           </div>
-          <a href="https://github.com/rohinimuppala18" target="_blank" class="proj-link"><i class="fab fa-github"></i> View on GitHub</a>
+          <div class="proj-links">
+            <a href="https://github.com/rohinimuppala18" target="_blank" class="plink">
+              <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.8 1 .8-.2 1.7-.3 2.5-.3s1.7.1 2.5.3c2-1.3 2.8-1 2.8-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5 4-1.3 6.8-5.1 6.8-9.5C22 6.5 17.5 2 12 2z"/></svg>
+              GitHub
+            </a>
+            <a href="#" class="plink demo">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Live Demo
+            </a>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
@@ -366,22 +623,31 @@ footer span{color:#60C8D8;}
     <div class="sec-line reveal"></div>
     <div class="ach-grid">
       <div class="ach-card reveal">
-        <div class="ach-icon gold"><i class="fas fa-trophy"></i></div>
+        <div class="ach-icon gold">🏆</div>
         <div><h4>Reliance Foundation Scholar</h4><p>Undergraduate Scholar+ of 2023 — awarded for outstanding academic excellence nationwide.</p></div>
       </div>
       <div class="ach-card reveal">
-        <div class="ach-icon silver"><i class="fas fa-medal"></i></div>
+        <div class="ach-icon silver">🥈</div>
         <div><h4>2nd Prize — Real Time Project</h4><p>Secured 2nd place for "Transforming Footsteps into Electricity" at a competitive project showcase.</p></div>
       </div>
       <div class="ach-card reveal">
-        <div class="ach-icon blue"><i class="fas fa-palette"></i></div>
+        <div class="ach-icon blue">🎨</div>
         <div><h4>Design Lead</h4><p>Led visual branding for GANITH, IETE & IEI clubs — boosting event engagement with standout creatives.</p></div>
       </div>
     </div>
     <div class="cert-row">
-      <div class="cert-pill reveal"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#006400" d="M11.5 2C6.3 2 2 6.3 2 11.5S6.3 21 11.5 21 21 16.7 21 11.5 16.7 2 11.5 2zm1 15.5h-2v-7h2v7zm0-9h-2V6h2v2.5z"/></svg><span>FreeCodeCamp — Web Development</span></div>
-      <div class="cert-pill reveal"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#1BA0D7" d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg><span>CISCO — JavaScript Essentials</span></div>
-      <div class="cert-pill reveal"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#A435F0" d="M12 3l9 4.5v9L12 21l-9-4.5v-9L12 3zm0 2.3L5 9v6l7 3.7 7-3.7V9L12 5.3z"/></svg><span>Udemy — Web Dev Boot Camp</span></div>
+      <div class="cert-pill reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#006400"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span>FreeCodeCamp — Web Development</span>
+      </div>
+      <div class="cert-pill reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1BA0D7"/><path d="M12 7v5l3 3" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        <span>CISCO — JavaScript Essentials</span>
+      </div>
+      <div class="cert-pill reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#A435F0"/><path d="M12 5l2 5h5l-4 3 1.5 5L12 15l-4.5 3L9 13l-4-3h5z" fill="#fff"/></svg>
+        <span>Udemy — Web Dev Boot Camp</span>
+      </div>
     </div>
   </div>
 </div>
@@ -391,16 +657,28 @@ footer span{color:#60C8D8;}
   <div class="contact-inner">
     <div class="contact-top">
       <h2 class="contact-heading reveal">Let's build<br/><span class="accent">something</span><br/>great together.</h2>
-      <div class="contact-cta-box reveal">
+      <div class="cta-box reveal">
         <p>I'm actively looking for internships and full-time opportunities. Whether it's a project, collaboration, or just a chat — my inbox is always open.</p>
-        <a href="mailto:rohinimuppala06@gmail.com" class="btn-cream"><i class="fas fa-paper-plane"></i> Say Hello →</a>
+        <a href="mailto:rohinimuppala06@gmail.com" class="btn-cream">✉ Say Hello →</a>
       </div>
     </div>
-    <div class="contact-links">
-      <a href="mailto:rohinimuppala06@gmail.com" class="clink reveal"><div class="clink-icon"><i class="fas fa-envelope"></i></div><div><h5>Email</h5><p>rohinimuppala06@gmail.com</p></div></a>
-      <a href="https://github.com/rohinimuppala18" target="_blank" class="clink reveal"><div class="clink-icon"><i class="fab fa-github"></i></div><div><h5>GitHub</h5><p>github.com/rohinimuppala18</p></div></a>
-      <a href="https://www.linkedin.com/in/rohinimuppala/" target="_blank" class="clink reveal"><div class="clink-icon"><i class="fab fa-linkedin-in"></i></div><div><h5>LinkedIn</h5><p>linkedin.com/in/rohinimuppala</p></div></a>
-      <a href="tel:+919390477754" class="clink reveal"><div class="clink-icon"><i class="fas fa-phone"></i></div><div><h5>Phone</h5><p>+91 93904 77754</p></div></a>
+    <div class="clinks">
+      <a href="mailto:rohinimuppala06@gmail.com" class="clink reveal">
+        <div class="clink-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#60C8D8" stroke-width="2"/><path d="M2 8l10 6 10-6" stroke="#60C8D8" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div><h5>Email</h5><p>rohinimuppala06@gmail.com</p></div>
+      </a>
+      <a href="https://github.com/rohinimuppala18" target="_blank" class="clink reveal">
+        <div class="clink-icon"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#60C8D8" d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.8 1 .8-.2 1.7-.3 2.5-.3s1.7.1 2.5.3c2-1.3 2.8-1 2.8-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5 4-1.3 6.8-5.1 6.8-9.5C22 6.5 17.5 2 12 2z"/></svg></div>
+        <div><h5>GitHub</h5><p>github.com/rohinimuppala18</p></div>
+      </a>
+      <a href="https://www.linkedin.com/in/rohinimuppala/" target="_blank" class="clink reveal">
+        <div class="clink-icon"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#60C8D8" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2" fill="#60C8D8"/></svg></div>
+        <div><h5>LinkedIn</h5><p>linkedin.com/in/rohinimuppala</p></div>
+      </a>
+      <a href="tel:+919390477754" class="clink reveal">
+        <div class="clink-icon"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#60C8D8" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+        <div><h5>Phone</h5><p>+91 93904 77754</p></div>
+      </a>
     </div>
   </div>
 </div>
@@ -408,23 +686,81 @@ footer span{color:#60C8D8;}
 <footer><p>Designed & Built with <span>♥</span> by <span>Rohini Muppala</span> · 2025</p></footer>
 
 <script>
-// Scroll reveal
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// LOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const l=document.getElementById('loader');
+    l.classList.add('hide');
+    setTimeout(()=>l.remove(),700);
+  },1900);
+});
 
-// Typewriter
-const roles = ["Full Stack Developer & Designer","UI/UX Enthusiast","Graphic Designer"];
-let ri=0,ci=0,deleting=false;
-const el = document.getElementById('typewriter-text');
-function type(){
-  const word = roles[ri];
-  if(!deleting){ el.textContent = word.slice(0,++ci); if(ci===word.length){deleting=true;setTimeout(type,1800);return;} }
-  else{ el.textContent = word.slice(0,--ci); if(ci===0){deleting=false;ri=(ri+1)%roles.length;setTimeout(type,400);return;} }
-  setTimeout(type, deleting?45:80);
+// CUSTOM CURSOR
+const cur=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
 }
-setTimeout(type,800);
+animRing();
+document.querySelectorAll('a,button,.proj-card,.stat-card,.skill-cat,.ach-card,.cert-pill').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+document.addEventListener('mousedown',()=>document.body.classList.add('clk'));
+document.addEventListener('mouseup',()=>document.body.classList.remove('clk'));
+
+// DARK MODE
+const tb=document.getElementById('themeBtn');
+let dark=false;
+tb.addEventListener('click',()=>{
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  tb.textContent=dark?'☀️':'🌙';
+});
+
+// BACK TO TOP
+window.addEventListener('scroll',()=>{
+  document.getElementById('btt').classList.toggle('show',window.scrollY>400);
+});
+
+// ACTIVE NAV
+const secs=document.querySelectorAll('[id]');
+const nls=document.querySelectorAll('.nl');
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      nls.forEach(l=>l.classList.remove('active'));
+      const l=document.querySelector(`.nl[href="#${e.target.id}"]`);
+      if(l)l.classList.add('active');
+    }
+  });
+},{threshold:.4});
+secs.forEach(s=>io.observe(s));
+
+// SCROLL REVEAL
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// TYPEWRITER
+const roles=["Full Stack Developer & Designer","UI/UX Enthusiast","Graphic Designer"];
+let ri=0,ci=0,del=false;
+const tw=document.getElementById('tw');
+function type(){
+  const w=roles[ri];
+  if(!del){tw.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(type,1800);return;}}
+  else{tw.textContent=w.slice(0,--ci);if(ci===0){del=false;ri=(ri+1)%roles.length;setTimeout(type,400);return;}}
+  setTimeout(type,del?45:80);
+}
+setTimeout(type,2200);
 </script>
 </body>
 </html>
